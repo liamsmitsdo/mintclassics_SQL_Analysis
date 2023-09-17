@@ -112,3 +112,13 @@ WHERE
 GROUP BY p.productCode
 ORDER BY sales
 LIMIT 10;
+
+-- are there any items stored that don't sell
+-- 1985 Toyota Supra has no sales
+SELECT 
+	p.productCode, p.productName, p.productLine, SUM(o.priceEach * o.quantityOrdered) AS sales
+FROM
+    mintclassics.orderdetails AS o
+        RIGHT JOIN
+    mintclassics.products AS p ON o.productCode = p.productCode
+GROUP BY p.productCode;
